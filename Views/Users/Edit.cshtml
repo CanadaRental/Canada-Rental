@@ -1,0 +1,56 @@
+﻿@model OntarioGo.Entity.UserEntity
+
+@{
+    ViewData["Title"] = "Edit Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/edit.css" />
+
+<div class="edit-container">
+
+    <div class="edit-card">
+
+        <h2>👤 Edit Profile</h2>
+
+        <form asp-action="Edit" method="post">
+
+            <input asp-for="UserId" hidden />
+
+            <div asp-validation-summary="ModelOnly" class="error"></div>
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input asp-for="FullName" class="form-control" />
+                <span asp-validation-for="FullName" class="error"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="error"></span>
+            </div>
+
+            <div class="actions">
+
+                <button type="submit" class="btn save">💾 Save</button>
+
+                <a asp-action="Profile" class="btn cancel">Cancel</a>
+
+                <a asp-action="ChangePassword" class="btn password">
+                    🔒 Change Password
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

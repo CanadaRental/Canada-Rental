@@ -1,0 +1,83 @@
+﻿@model OntarioGo.Entity.PropertyEntity
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/details.css" />
+
+<div class="details-container">
+
+    <!-- GALERÍA -->
+    <div class="gallery">
+
+        @if (Model.Images != null && Model.Images.Count > 0)
+        {
+            <img id="mainImage" class="main-image"
+                 src="data:image/jpeg;base64,@Model.Images[0].Base64Image" />
+
+            <div class="thumbnail-container">
+                @foreach (var img in Model.Images)
+                {
+                    <img class="thumbnail"
+                         src="data:image/jpeg;base64,@img.Base64Image"
+                         onclick="changeImage(this)" />
+                }
+            </div>
+        }
+        else
+        {
+            <img class="main-image" src="/images/no-image.png" />
+        }
+
+    </div>
+
+    <!-- INFO -->
+    <div class="info">
+
+        <h1 class="title">@Model.Title</h1>
+
+        <div class="price">$@Model.Price</div>
+
+        <div class="location">📍 @Model.City, @Model.Province</div>
+
+        <div class="badge-container">
+            @if (Model.IsAvailable)
+            {
+                <span class="badge available">Available</span>
+            }
+            else
+            {
+                <span class="badge unavailable">Not Available</span>
+            }
+        </div>
+
+        <div class="features">
+            🛏 @Model.Bedrooms Bedrooms
+            | 🛁 @Model.Bathrooms Bathrooms
+            | 🏠 @Model.PropertyType
+        </div>
+
+        <div class="address">
+            📌 @Model.Address
+        </div>
+
+        <div class="description">
+            @Model.Description
+        </div>
+
+        <div class="actions">
+            <a asp-action="Edit" asp-route-id="@Model.PropertyId" class="btn edit">Edit</a>
+            <a asp-action="Index" class="btn back">Back</a>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    function changeImage(img) {
+        document.getElementById("mainImage").src = img.src;
+    }
+</script>

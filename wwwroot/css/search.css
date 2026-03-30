@@ -1,0 +1,86 @@
+﻿body {
+    font-family: Arial, sans-serif;
+}
+
+/* SEARCH FORM */
+.search-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+    .search-form div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .search-form label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .search-form input,
+    .search-form select {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .search-form button {
+        grid-column: span 2;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+        .search-form button:hover {
+            background-color: #0056b3;
+        }
+
+/* RESULTS GRID */
+.results {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+/* PROPERTY CARD */
+.card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .card h4 {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    .card p {
+        margin: 5px 0;
+    }
+
+    /* LINK */
+    .card a {
+        display: inline-block;
+        margin-top: 10px;
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        .card a:hover {
+            text-decoration: underline;
+        }

@@ -1,0 +1,122 @@
+﻿/* Layout */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.create-btn {
+    background: black;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+    .create-btn:hover {
+        background: #333;
+    }
+
+/* Card */
+.card {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: all 0.25s ease;
+    background: #fff;
+}
+
+    .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+/* Image */
+.image-container img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+/* Body */
+.card-body {
+    padding: 15px;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #111;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 8px 0;
+}
+
+.location, .details {
+    color: #777;
+    font-size: 14px;
+}
+
+/* Badges */
+.badge {
+    padding: 3px 8px;
+    font-size: 12px;
+    border-radius: 6px;
+    margin-left: 8px;
+}
+
+.available {
+    background: #28a745;
+    color: white;
+}
+
+.unavailable {
+    background: #dc3545;
+    color: white;
+}
+
+/* Buttons */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.btn {
+    text-decoration: none;
+    font-size: 13px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.view {
+    background: #007bff;
+    color: white;
+}
+
+    .view:hover {
+        background: #0056b3;
+    }
+
+.edit {
+    background: #ffc107;
+    color: black;
+}
+
+.delete {
+    background: #dc3545;
+    color: white;
+}

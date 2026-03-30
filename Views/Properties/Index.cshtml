@@ -1,0 +1,63 @@
+﻿@model IEnumerable<OntarioGo.Entity.PropertyEntity>
+
+@{
+    ViewData["Title"] = "Properties";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/properties.css" />
+
+<div class="header">
+    <h2>🏠 Properties</h2>
+   
+</div>
+
+<div class="grid">
+    @foreach (var item in Model)
+    {
+        <div class="card">
+
+            <div class="image-container">
+                @if (item.Images != null && item.Images.Count > 0)
+                {
+                    <img src="data:image/jpeg;base64,@item.Images[0].Base64Image" />
+                }
+                else
+                {
+                    <img src="/images/no-image.png" />
+                }
+            </div>
+
+            <div class="card-body">
+
+                <div class="price">
+                    $@item.Price
+                    @if (item.IsAvailable)
+                    {
+                        <span class="badge available">Available</span>
+                    }
+                    else
+                    {
+                        <span class="badge unavailable">Not Available</span>
+                    }
+                </div>
+
+                <div class="title">@item.Title</div>
+
+                <div class="location">
+                    📍 @item.City, @item.Province
+                </div>
+
+                <div class="details">
+                    🛏 @item.Bedrooms | 🛁 @item.Bathrooms
+                </div>
+
+                <div class="card-footer">
+                    <a asp-action="Details" asp-route-id="@item.PropertyId" class="btn view">View</a>
+                    
+                </div>
+
+            </div>
+        </div>
+    }
+</div>

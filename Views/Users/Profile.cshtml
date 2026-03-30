@@ -1,0 +1,44 @@
+﻿@model OntarioGo.Entity.UserEntity
+
+@{
+    ViewData["Title"] = "My Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/profile.css" />
+
+<div class="profile-container">
+
+    <div class="profile-card">
+
+        <div class="profile-header">
+            <div class="avatar">
+                @Model.FullName.Substring(0, 1)
+            </div>
+            <h2>@Model.FullName</h2>
+            <p>@Model.Email</p>
+        </div>
+
+        <div class="profile-info">
+            <div class="info-item">
+                <label>Full Name</label>
+                <span>@Model.FullName</span>
+            </div>
+
+            <div class="info-item">
+                <label>Email</label>
+                <span>@Model.Email</span>
+            </div>
+        </div>
+
+        <div class="actions">
+            <a asp-action="Edit" asp-route-id="@Model.UserId" class="btn edit">
+                ✏️ Edit Profile
+            </a>
+
+            <a asp-controller="Properties" asp-action="Index" class="btn cancel">Back</a>
+        </div>
+
+    </div>
+
+</div>

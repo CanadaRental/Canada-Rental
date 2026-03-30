@@ -1,0 +1,76 @@
+﻿@model OntarioGo.Entity.UserEntity
+
+@{
+    Layout = null;
+    string messageError = (string)TempData["messageError"];
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OntarioGo - Sign Up</title>
+
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+          crossorigin="anonymous">
+
+    <!--Custom styles-->
+    <link rel="stylesheet" type="text/css" href="~/css/login.css">
+</head>
+<body>
+    @if (!string.IsNullOrEmpty(messageError))
+    {
+        <div class="error-banner">
+            @messageError
+        </div>
+    }
+
+    <main class="login-wrapper">
+        <div class="login-card">
+            <div class="login-header">
+                <h1><i class="fas fa-user-plus"></i> Create Account</h1>
+                <p>Join OntarioGo today!</p>
+            </div>
+
+            <form asp-action="Register" class="login-form">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="FullName" class="control-label"></label>
+                    <input asp-for="FullName" class="form-control" />
+                    <span asp-validation-for="FullName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Role" class="control-label"></label>
+                    <input asp-for="Role" class="form-control" />
+                    <span asp-validation-for="Role" class="text-danger"></span>
+                </div>
+                <input asp-for="Role" type="hidden" value="Customer" />
+
+                <button type="submit" class="btn-primary"><i class="fas fa-user-check"></i> Register</button>
+
+                <div class="signup-link" style="margin-top: 20px; text-align:center;">
+                    Already have an account? <a href="/Auth/login"><i class="fas fa-sign-in-alt"></i> Sign In</a>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
+
+
+
+
+
