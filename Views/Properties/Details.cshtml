@@ -54,9 +54,9 @@
         </div>
 
         <div class="features">
-            🛏 @Model.Bedrooms Bedrooms
-            | 🛁 @Model.Bathrooms Bathrooms
-            | 🏠 @Model.PropertyType
+            🛏 @Model.Bedrooms Bedrooms |
+            🛁 @Model.Bathrooms Bathrooms |
+            🏠 @Model.PropertyType
         </div>
 
         <div class="address">
@@ -67,9 +67,35 @@
             @Model.Description
         </div>
 
+        <!-- BOTONES -->
         <div class="actions">
-            <a asp-action="Edit" asp-route-id="@Model.PropertyId" class="btn edit">Edit</a>
-            <a asp-action="Index" class="btn back">Back</a>
+
+            <a asp-action="Edit" asp-route-id="@Model.PropertyId" class="btn edit">
+                Edit
+            </a>
+
+            <a asp-action="Index" class="btn back">
+                Back
+            </a>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <!-- FAVORITOS -->
+                <a href="@Url.Action("Add", "Favorites", new { propertyId = Model.PropertyId })"
+                   id="favBtn"
+                   class="btn-fav">
+                    ♥
+                </a>
+
+                <!-- SEND MESSAGE -->
+                <a asp-controller="Messages"
+                   asp-action="Send"
+                   asp-route-propertyId="@Model.PropertyId"
+                   class="btn send">
+                    💬 Message
+                </a>
+            }
+
         </div>
 
     </div>
@@ -80,4 +106,14 @@
     function changeImage(img) {
         document.getElementById("mainImage").src = img.src;
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const favBtn = document.getElementById("favBtn");
+
+        if (favBtn) {
+            favBtn.addEventListener("click", function () {
+                this.classList.add("active");
+            });
+        }
+    });
 </script>

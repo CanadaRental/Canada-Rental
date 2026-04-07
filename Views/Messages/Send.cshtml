@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Send Message";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int propertyId = ViewBag.PropertyId;
+}
+
+<link rel="stylesheet" href="~/css/send.css" />
+
+<div class="send-container">
+
+    <h1>💬 Send Message</h1>
+
+    <div class="send-card">
+
+        <form asp-action="Send" method="post">
+
+            <!-- Hidden PropertyId -->
+            <input type="hidden" name="propertyId" value="@propertyId" />
+
+            <label>Message</label>
+
+            <textarea name="messageText"
+                      placeholder="Write your message..."
+                      required></textarea>
+
+            <button type="submit" class="send-btn">
+                Send 🚀
+            </button>
+
+        </form>
+
+    </div>
+
+</div>

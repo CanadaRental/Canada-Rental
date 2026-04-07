@@ -53,8 +53,18 @@
                 </div>
 
                 <div class="card-footer">
-                    <a asp-action="Details" asp-route-id="@item.PropertyId" class="btn view">View</a>
-                    
+
+                    <a asp-action="Details" asp-route-id="@item.PropertyId" class="btn view">
+                        View
+                    </a>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="Favorites" asp-action="Add" asp-route-propertyId="@item.PropertyId" class="btn-fav">
+                            ♥
+                        </a>
+                    }
+
                 </div>
 
             </div>

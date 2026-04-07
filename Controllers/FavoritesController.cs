@@ -22,7 +22,6 @@ namespace OntarioGo.Controllers
         }
 
       
-        // AGREGAR A FAVORITOS
         
         public IActionResult Add(int propertyId)
         {
@@ -58,14 +57,11 @@ namespace OntarioGo.Controllers
         }
 
 
-        // VER FAVORITOS
-        
         public IActionResult Index()
         {
             List<PropertyEntity> favorites = new List<PropertyEntity>();
 
-            int userId = GetUserId(); // ✅ FIX
-
+            int userId = GetUserId(); 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 string query = @"
@@ -106,7 +102,6 @@ namespace OntarioGo.Controllers
         }
 
     
-        // ELIMINAR FAVORITO
      
         public IActionResult Remove(int propertyId)
         {

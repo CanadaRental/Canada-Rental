@@ -5,7 +5,6 @@
     margin-top: 20px;
 }
 
-/* GALERÍA */
 .gallery {
     flex: 1;
     min-width: 300px;
@@ -38,7 +37,6 @@
         transform: scale(1.1);
     }
 
-/* INFO */
 .info {
     flex: 1;
     min-width: 300px;
@@ -60,7 +58,6 @@
     margin-bottom: 10px;
 }
 
-
 .badge-container {
     margin-bottom: 10px;
 }
@@ -80,7 +77,6 @@
     background: #dc3545;
     color: white;
 }
-
 
 .features {
     margin: 10px 0;
@@ -126,4 +122,33 @@
 
     .back:hover {
         background: #111;
+    }
+
+.btn-fav {
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 16px;
+    border: 1px solid #dc3545;
+    color: #dc3545;
+    transition: 0.2s;
+}
+
+    .btn-fav:hover {
+        background: #dc3545;
+        color: white;
+    }
+
+    .btn-fav.active {
+        background: #dc3545;
+        color: white;
+    }
+
+.btn.send {
+    background-color: #28a745;
+    color: white;
+}
+
+    .btn.send:hover {
+        background-color: #1e7e34;
     }

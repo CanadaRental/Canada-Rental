@@ -9,10 +9,7 @@ namespace OntarioGo.Controllers
     {
         private string connectionString = "Server=ontariodb.mssql.somee.com;Database=ontariodb;User Id=ontariogo_SQLLogin_1;Password=rmf7zitki5;TrustServerCertificate=True;";
 
-        public IActionResult Test()
-        {
-            return View();
-        }
+        
     
         private int GetUserId()
         {

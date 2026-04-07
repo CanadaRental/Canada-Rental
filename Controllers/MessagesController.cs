@@ -9,7 +9,6 @@ namespace OntarioGo.Controllers
     {
         private string connectionString = "Server=ontariodb.mssql.somee.com;Database=ontariodb;User Id=ontariogo_SQLLogin_1;Password=rmf7zitki5;TrustServerCertificate=True;";
 
-        
         private int? GetUserId()
         {
             var claim = User.FindFirst("UserId")?.Value;
@@ -21,29 +20,27 @@ namespace OntarioGo.Controllers
             return User.Identity?.Name ?? "";
         }
 
-     
         public IActionResult Send(int propertyId)
         {
             ViewBag.PropertyId = propertyId;
             return View();
         }
 
-
         [HttpPost]
         public IActionResult Send(int propertyId, string messageText)
         {
-            int? senderId = GetUserId();          
-            string senderEmail = GetUserEmail(); 
+            int? senderId = GetUserId();
+            string senderEmail = GetUserEmail();
 
-            messageText = messageText ?? "";     
+            messageText = messageText ?? "";
 
             int ownerId = 0;
+            int conversationId = 0;
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
 
-               
                 string getOwnerQuery = "SELECT OwnerId FROM Properties WHERE PropertyId=@PropertyId";
                 SqlCommand ownerCmd = new SqlCommand(getOwnerQuery, conn);
                 ownerCmd.Parameters.AddWithValue("@PropertyId", propertyId);
@@ -54,11 +51,29 @@ namespace OntarioGo.Controllers
                     ownerId = (int)result;
                 }
 
-                
+                string getConvQuery = @"
+                SELECT TOP 1 ConversationId 
+                FROM Messages 
+                WHERE PropertyId = @PropertyId AND ConversationId IS NOT NULL";
+
+                SqlCommand convCmd = new SqlCommand(getConvQuery, conn);
+                convCmd.Parameters.AddWithValue("@PropertyId", propertyId);
+
+                object convResult = convCmd.ExecuteScalar();
+
+                if (convResult != null)
+                {
+                    conversationId = (int)convResult;
+                }
+                else
+                {
+                    conversationId = new Random().Next(10000, 99999);
+                }
+
                 string insertMessageQuery = @"
                 INSERT INTO Messages 
-                (PropertyId, SenderId, SenderEmail, MessageText, SentAt) 
-                VALUES (@PropertyId, @SenderId, @SenderEmail, @MessageText, GETDATE())";
+                (PropertyId, SenderId, SenderEmail, MessageText, SentAt, ConversationId) 
+                VALUES (@PropertyId, @SenderId, @SenderEmail, @MessageText, GETDATE(), @ConversationId)";
 
                 SqlCommand msgCmd = new SqlCommand(insertMessageQuery, conn);
 
@@ -66,10 +81,10 @@ namespace OntarioGo.Controllers
                 msgCmd.Parameters.AddWithValue("@SenderId", (object?)senderId ?? DBNull.Value);
                 msgCmd.Parameters.AddWithValue("@SenderEmail", senderEmail ?? "");
                 msgCmd.Parameters.AddWithValue("@MessageText", messageText);
+                msgCmd.Parameters.AddWithValue("@ConversationId", conversationId);
 
                 msgCmd.ExecuteNonQuery();
 
-               
                 if (ownerId != 0)
                 {
                     string notificationQuery = @"
@@ -88,8 +103,58 @@ namespace OntarioGo.Controllers
             return RedirectToAction("Details", "Properties", new { id = propertyId });
         }
 
-    
-        [Authorize] 
+      
+        [HttpPost]
+        [Authorize]
+        public IActionResult Reply(int messageId, string messageText)
+        {
+            int? senderId = GetUserId();
+            string senderEmail = GetUserEmail();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                int propertyId = 0;
+                int conversationId = 0;
+
+                string getQuery = "SELECT PropertyId, ConversationId FROM Messages WHERE MessageId = @MessageId";
+                SqlCommand getCmd = new SqlCommand(getQuery, conn);
+                getCmd.Parameters.AddWithValue("@MessageId", messageId);
+
+                SqlDataReader reader = getCmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    propertyId = (int)reader["PropertyId"];
+                    conversationId = reader["ConversationId"] != DBNull.Value
+                        ? (int)reader["ConversationId"]
+                        : new Random().Next(10000, 99999);
+                }
+
+                reader.Close();
+
+                string insertQuery = @"
+                INSERT INTO Messages 
+                (PropertyId, SenderId, SenderEmail, MessageText, SentAt, ConversationId) 
+                VALUES (@PropertyId, @SenderId, @SenderEmail, @MessageText, GETDATE(), @ConversationId)";
+
+                SqlCommand cmd = new SqlCommand(insertQuery, conn);
+
+                cmd.Parameters.AddWithValue("@PropertyId", propertyId);
+                cmd.Parameters.AddWithValue("@SenderId", (object?)senderId ?? DBNull.Value);
+                cmd.Parameters.AddWithValue("@SenderEmail", senderEmail ?? "");
+                cmd.Parameters.AddWithValue("@MessageText", messageText);
+                cmd.Parameters.AddWithValue("@ConversationId", conversationId);
+
+                cmd.ExecuteNonQuery();
+            }
+
+            return RedirectToAction("Inbox");
+        }
+
+       
+        [Authorize]
         public IActionResult Inbox()
         {
             List<MessageEntity> messages = new List<MessageEntity>();

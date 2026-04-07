@@ -17,9 +17,7 @@ namespace OntarioGo.Controllers
             return int.Parse(claim);
         }
 
-        // =========================
-        // VER NOTIFICACIONES
-        // =========================
+        
         [Authorize] 
         public IActionResult Index()
         {
@@ -78,7 +76,6 @@ namespace OntarioGo.Controllers
         }
 
      
-        // se usa desde otros controllers, no necesita vista
         public void CreateNotification(int userId, string message)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))

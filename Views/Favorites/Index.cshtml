@@ -1,0 +1,52 @@
+﻿@model IEnumerable<OntarioGo.Entity.PropertyEntity>
+
+@{
+    ViewData["Title"] = "My Favorites";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/favorites.css" />
+
+<div class="favorites-container">
+
+    <div class="favorites-header">
+        <h2>My Favorites</h2>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <p class="empty">You have no favorite properties</p>
+    }
+    else
+    {
+        <div class="favorites-grid">
+            @foreach (var item in Model)
+            {
+                <div class="favorite-card">
+
+                    <div class="favorite-info">
+                        <h3>@item.Title</h3>
+                        <p class="location">@item.City, @item.Province</p>
+                        <p class="price">$@item.Price</p>
+
+                        <span class="status @(item.IsAvailable ? "available" : "not-available")">
+                            @(item.IsAvailable ? "Available" : "Not Available")
+                        </span>
+                    </div>
+
+                    <div class="favorite-actions">
+                        <a asp-controller="Properties" asp-action="Details" asp-route-id="@item.PropertyId" class="btn-view">
+                            View
+                        </a>
+
+                        <a asp-action="Remove" asp-route-propertyId="@item.PropertyId" class="btn-remove">
+                            ♥ Remove
+                        </a>
+                    </div>
+
+                </div>
+            }
+        </div>
+    }
+
+</div>

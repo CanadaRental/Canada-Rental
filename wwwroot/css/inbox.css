@@ -1,0 +1,98 @@
+﻿/* Contenedor */
+.inbox-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 10px;
+}
+
+    .inbox-container h1 {
+        margin-bottom: 20px;
+    }
+
+/* Tarjeta */
+.message-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    transition: 0.2s;
+}
+
+    .message-card:hover {
+        transform: scale(1.01);
+    }
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.email {
+    color: #007bff;
+}
+
+.date {
+    font-size: 12px;
+    color: gray;
+}
+
+.message-body {
+    margin: 10px 0;
+    font-size: 15px;
+}
+
+.message-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.property {
+    font-size: 12px;
+    color: gray;
+}
+.view-btn {
+    background: #007bff;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+    .view-btn:hover {
+        background: #0056b3;
+    }
+
+.reply-form {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+    .reply-form textarea {
+        resize: none;
+        height: 60px;
+        padding: 8px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
+
+.reply-btn {
+    align-self: flex-end;
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+    .reply-btn:hover {
+        background: #1e7e34;
+    }

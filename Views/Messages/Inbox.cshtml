@@ -1,0 +1,66 @@
+﻿@model IEnumerable<OntarioGo.Entity.MessageEntity>
+
+@{
+    ViewData["Title"] = "Inbox";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/inbox.css" />
+
+<div class="inbox-container">
+
+    <h1>📩 Inbox</h1>
+
+    @if (Model == null || !Model.Any())
+    {
+        <p>No messages yet.</p>
+    }
+    else
+    {
+        @foreach (var item in Model)
+        {
+            <div class="message-card">
+
+                <div class="message-header">
+                    <span class="email">📧 @item.SenderEmail</span>
+                    <span class="date">@item.SentAt.ToString("g")</span>
+                </div>
+
+                <div class="message-body">
+                    @item.MessageText
+                </div>
+
+                <div class="message-footer">
+
+                    <span class="property">
+                        🏠 Property ID: @item.PropertyId
+                    </span>
+
+                    <a asp-controller="Properties"
+                       asp-action="Details"
+                       asp-route-id="@item.PropertyId"
+                       class="view-btn">
+                        View Property
+                    </a>
+
+                </div>
+
+                <form asp-action="Reply" method="post" class="reply-form">
+
+                    <input type="hidden" name="messageId" value="@item.MessageId" />
+
+                    <textarea name="messageText"
+                              placeholder="Write a reply..."
+                              required></textarea>
+
+                    <button type="submit" class="reply-btn">
+                        Reply
+                    </button>
+
+                </form>
+
+            </div>
+        }
+    }
+
+</div>

@@ -9,6 +9,8 @@
         public string MessageText { get; set; }
         public DateTime SentAt { get; set; }
 
+        public int? ConversationId { get; set; }  
+
         public PropertyEntity Property { get; set; }
         public UserEntity Sender { get; set; }
     }

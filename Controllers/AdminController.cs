@@ -27,7 +27,6 @@ namespace OntarioGo.Controllers
         }
 
      
-        // DASHBOARD
      
         public IActionResult Dashboard()
         {

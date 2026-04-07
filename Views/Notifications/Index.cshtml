@@ -1,0 +1,42 @@
+﻿@model IEnumerable<OntarioGo.Entity.NotificationEntity>
+
+@{
+    ViewData["Title"] = "Notifications";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/notifications.css" />
+
+<div class="notifications-container">
+    <h2 class="title">🔔 Notifications</h2>
+
+    @if (!Model.Any())
+    {
+        <p class="empty">You have no notifications</p>
+    }
+    else
+    {
+        <div class="notifications-list">
+            @foreach (var item in Model)
+            {
+                <div class="notification-card @(item.IsRead ? "read" : "unread")">
+
+                    <div class="notification-content">
+                        <p class="message">@item.Message</p>
+                        <span class="date">@item.CreatedAt.ToString("MMM dd, yyyy - HH:mm")</span>
+                    </div>
+
+                    <div class="notification-actions">
+                        @if (!item.IsRead)
+                        {
+                            <a asp-action="MarkAsRead" asp-route-id="@item.NotificationId" class="btn-read">
+                                Mark as read
+                            </a>
+                        }
+                    </div>
+
+                </div>
+            }
+        </div>
+    }
+</div>
