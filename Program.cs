@@ -8,7 +8,6 @@ namespace OntarioGo
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Servicios
             builder.Services.AddControllersWithViews();
             builder.Services.AddSession();
 
@@ -23,7 +22,6 @@ namespace OntarioGo
 
             var app = builder.Build();
 
-            // Pipeline
             if (!app.Environment.IsDevelopment())
             {
                 app.UseExceptionHandler("/Auth/Login");
@@ -36,7 +34,7 @@ namespace OntarioGo
             app.UseRouting();
 
             app.UseSession();
-            app.UseAuthentication();   // 👈 IMPORTANTE
+            app.UseAuthentication();   
             app.UseAuthorization();
 
             app.MapControllerRoute(
