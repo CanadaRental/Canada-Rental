@@ -104,7 +104,7 @@ namespace OntarioGo.Controllers
 
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync("CookieAuth"); // 👈 IMPORTANTE
+            await HttpContext.SignOutAsync("CookieAuth"); 
             HttpContext.Session.Clear();
             return RedirectToAction("Login");
         }
